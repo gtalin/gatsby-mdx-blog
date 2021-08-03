@@ -1,0 +1,232 @@
+---
+title: JS Classes
+date: 2019-05-05
+published: true
+---
+
+# Introduction
+
+Class is used to create Objects. It is not used directly by program logic.
+main areas with a class definition:
+
+- Instance property: what they have
+- Instance method: what they do
+  Example a Car class instance properties:
+- Type: manual or automatic
+- Brand:
+- Weight
+- Horse power
+
+Instance properties would be:
+
+- Start
+- Stop
+- Adjust speed
+
+Constructor method:
+Constructor is a method which is run once and only once when the object is being created.
+It is used to setup the object. Acts like a normal function. We can console.log statements inside it.
+Example we want to draw a Circle.
+
+```js
+class Circle {
+  constructor(coordinate, radius) {
+    this.x = coordinate.x;
+    this.y = coordinate.y;
+    this.radius = radius;
+  }
+
+  getArea() {
+    return this.radius * this.radius * Math.PI;
+  }
+
+  printDescription() {
+    console.log(`I am a Circle of radius ${this.radius}`);
+  }
+}
+
+const Circle1 = new Circle({ x: 0, y: 0 }, 10);
+console.log(Circle1);
+```
+
+So basically the Circle class serves as a template to create new objects. (Just like we used constructor function before).
+The constructor function accepts parameters or arguments.
+
+The instance properties for each object created would be different. Just like in classes in languages like python or C++.
+
+Instance properties which is data relevant to each individual object that is created.
+Instance methods are functions which uses instance properties to achieve an action or some sort of result based on each individual object being created from the class.
+
+Many times the arguments that are passed to the constructor function are written as `_x`, `_y` that is preceded by an underscore (to indicate that they're not to be used directly).
+
+## Getters and setters
+
+Getters and setters are used to define methods in class which are then used as if they're properties.
+They look like properties but they're methods of that class.
+
+```js
+class Circle {
+  constructor(radius) {
+    this.radius = radius;
+  }
+
+  get area() {
+    return this.radius * this.radius * Math.PI;
+  }
+
+  set area(area) {
+    this.radius = Math.sqrt(area / Math.PI);
+  }
+}
+
+circle1 = new Circle(10);
+console.log(circle);
+console.log(circle1.area);
+// 314.1592653589793
+circle1.area = 500;
+console.log(circle1.radius);
+// 12.6156626101008
+```
+
+We can use getter function to get the area of the circle (just like it was a property and not method)
+Also we can use use the setter method to change the radius of circle. As we can see in the example above.
+We can also create a new property in constructor called `numOfRequestsForArea` and then increment it in the getter function.
+
+## Static methods
+
+It is a method which is defined on a class but it is not a part of the instantiated object that has been created.
+Basically they don't need an instance of a class to be created in order to be used.
+
+A lot of these methods are helper methods. They're like utilities which are relevant to the class but they don't have an object bound.
+
+```js
+class Point {
+  constructor(coordiantes) {
+    this.x = coordiantes.x;
+    this.y = coordiantes.y;
+  }
+
+  static samePosition(a, b) {
+    return a.x === b.x && a.y === b.y;
+  }
+}
+
+let point1 = new Point({ x: 10, y: 10 });
+let point2 = new Point({ x: 10, y: 10 });
+console.log(Point.samePosition(point1, point2));
+```
+
+We'll create a static method to compare area of two squares (the example used by the person doing the video)
+Or we can find if both points are at the same position.
+
+What would be a good practical use case for this?
+Comparing two points whether they are at the same co-ordinates or not seems like a good use case. An external function might need to know if 2 points are at the same position and if so, just display one.
+
+Basically a static function is used by the class and not an instance of class. We just pass the instances and in the implementation, we don't use `this`.
+
+Another example could be `isValidDimensions` which checks if width and height are equal then it is a valid square.
+
+```js
+class Square {
+  constructor(width) {
+    this.width = width;
+    this.height = height;
+  }
+  static isValidDimensions(width, height) {
+    return width === height;
+  }
+}
+```
+
+And then while using: `console.log(Square.isValidDimensions(6,6));`
+Maybe before creating an actual instance of Square ie. an object square, we can check if it's valid dimensions. Or something like that. If valid dimensions then we create a square else we create a rectangle or something like that.
+
+Don't require an instance of class to work. They're like helper functions.
+
+### Inheritance and Extends
+
+When you have a generic class and then create a new child class of the generic class while still maintaining its features and behaviours but a little bit extra.
+
+```js
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+}
+
+class Programmer extends Person {
+  constructor(name, age, yearsOfExperience) {
+    super(name, age);
+    this.yearsOfExperience = yearsOfExperience;
+  }
+
+  code() {
+    console.log(`${this.name} is coding`);
+  }
+}
+
+let person1 = new Person('AJ', 34);
+let programmer1 = new Programmer('Jo', 35, 12);
+function developSoftware(programmers) {
+  // Develop software
+}
+```
+
+Suppose we have a `developSoftware` function which takes in a programmer as an argument.
+`Programmer extends Person` means it takes in all attributes and behaviours of Person and has its own properties and behaviours.
+This `Programmer` class has access to not only the properties in `Person` but also to the methods in `Person`.
+
+Inside the child class, we have to call the parent constructor. We still have to assign the `name` and `age` but we can do it in a generic method by uding `super(name, age)` and rest will be custom behaviour of the `Programmer`.
+
+This still works with the prototype chain. (we can see in `__proto__`)
+
+If we call `person1.code()` we'll get an error and if we do `programmer.code()`
+it'll work.
+
+NOTE:: if we call `super(name, age)` in a constructor of a class which does not inherit from any other class, then we'll get an erro.
+
+## Polymorphism
+
+The act of redefining a method inside a derived child class. (Not really a very good definition I guess. I think what I'd learned in C++ was better )
+
+```js
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+
+  makeSound() {
+    console.log('Make generic sound');
+  }
+}
+
+class Cat extends Animal {
+  constructor(name) {
+    super(name);
+  }
+
+  makeSound() {
+    console.log('Cat meows');
+  }
+}
+
+let a1 = new Animal('Cat');
+let a2 = new Cat('Garfield');
+console.log(a1.makeSound());
+console.log(a2.makeSound());
+```
+
+We are achieving polymorphism here by overriding the method inside the child class.
+If there was no `makeSound` method in `Cat` class, it would just print `Make generic sound`. So if we were unable to find a method in the child class, it would go and check the parent class and execute that method.
+
+Calling `super` inside the child class.
+
+```js
+makeSound() {
+  super.makeSound();
+  console.log("Cat meows");
+}
+```
+
+And in this case it'll execute the parent method and then the child method.

@@ -1,0 +1,99 @@
+---
+title: Async code JS
+date: 2019-03-22
+published: true
+---
+
+# Async code JS
+
+These are notes based on [Mongodb university](https://university.mongodb.com/mercury/M220JS/2019_February/chapter/Chapter_1_Driver_Setup/lesson/5baadd6e358c9530d1caa998/tab/5bd0d86e8d8ea31ba2f66f96)
+
+Basically there are 3 ways to write async code in JS.
+
+- Callbacks
+- Promises
+- Async/Await
+
+The following examples show how to use async code with mongoDB and write jest tests with async code
+In mongoDB implementation in node, the driver inspects if a callback is supplied, if not, it'll automatically return a promise which can then be used in two ways:
+
+- using the promises syntax with .then
+- using async/await code
+
+## Callbacks
+
+```js
+test('Callbacks', function (err, done) {
+  movies.findOne({ title: 'Once Upon a Time in Mexico' }, function (err, doc) {
+    expect(err).toBeNull();
+    expect(doc.title).toBe('Once Upon a Time in Mexico');
+    expect(doc.cast).toContain('Salma Hayek');
+    done();
+  });
+});
+```
+
+NOTE: In callback function, the convention is `function(err, doc) {}`
+If there would have been an error, the `err` paramater would have been some other value, other than Null.
+done() is mainly for testing framework.
+
+## Promises
+
+We ask mongo to `findOne` movie with title 'Once Upon a Time in Mexico' then (.then()) we'll do something with it.
+What .catch() does is, catch any error and deal with it.
+
+```js
+test('Promises', done => {
+  movies
+    .findOne({ title: 'Once Upon a Time in Mexico' })
+    .then(doc => {
+      expect(doc.title).toBe('Once Upon a Time in Mexico');
+      expect(doc.cast).toContain('Salma Hayek');
+      done();
+    })
+    .catch(err => {
+      expect(err).toBeNull();
+      done();
+    });
+});
+```
+
+## Async/Await
+
+Some points about async/await from [4]
+To use asyc/await, we need to mark our function as async. If we do that, we can then use await inside our function.
+What `await` does is that it pauses the execution of the async function and waits for the passed `Promise` to resolve and the resumes the async function's execution.
+`await` keyword is only valid inside `async` function.
+From [1], you should always wrap the await statements in a try/catch block. This is like the equivalent of writing: .then().catch()
+
+[ We need to use done() with both promises and callback. don't need done() with async. ]
+
+```js
+test('Async/Await', async () => {
+  try {
+    const { title, cast } = await movies.findOne({
+      title: 'Once upon a time in Mexico',
+    }); //destructuring
+    expect(title).toBe('Once Upon a Time in Mexico');
+    expect(cast).toContain('Salma Hayek');
+  } catch (e) {
+    expect(e).toBeNull();
+  }
+});
+```
+
+## Handling errors:
+
+- In callbacks, errors are handled in the callback function with err and doc
+- In promises, error is handled in .catch() block
+- In async/await, error is handled using try/catch block.
+
+# References
+
+[1] https://university.mongodb.com/mercury/M220JS/2019_February/chapter/Chapter_1_Driver_Setup/lesson/5baadd6e358c9530d1caa998/tab/5bd0d86e8d8ea31ba2f66f96
+
+[2] https://jestjs.io/docs/en/asynchronous
+
+[3] https://medium.com/front-end-weekly/callbacks-promises-and-async-await-ad4756e01d90
+
+[4] https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function

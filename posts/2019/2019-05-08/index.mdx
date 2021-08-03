@@ -1,0 +1,232 @@
+---
+title: JS OOP without classes
+date: 2019-05-08
+published: true
+---
+
+## Object literals:
+
+In JS almost everything is an Object.
+
+```js
+const s = 'Hello';
+console.log(s.toUpperCase());
+console.log(typeof s1); // string
+const s2 = new String('Hello');
+console.log(typeof s2); // object
+```
+
+This `s.toUpperCase()` seems to be an object but it is actually a string literal. And when we call a method on it, JS sort of wraps an object around it.
+When we do `new String('Hello')` it creates an object and when we do `s1 = 'Hello'` that is a string literal and when we do something like `s1.toUpperCase()` it's doing `new String('')` thing behind the scenes. But by default it is a primitive.
+
+We have things like DOM objects like : `window` which is the parent object of everything. It has a bunch of methods. One of the methods is `alert` which we can call on window like: `window.aler(1)`
+
+In the browser, the DOM, there is nothing above `window`
+Then we have `navigator` which is kind of like
+`navigator` is part of the `window` object. But even when we don't write `window` it'll fall back on `window` object.
+`console.log(navigator.appVersion);`
+
+This can be a bit confusing but now we'll talk about `Object literals`
+
+```js
+const book1 = {
+  title: 'Book One',
+  author: 'John Doe',
+  year: '2013',
+};
+```
+
+In this book1 we can also put in a function as a property. Like so:
+
+```js
+const book1 = {
+  title: 'Book One',
+  author: 'John Doe',
+  year: '2013',
+  getSummary: function () {
+    return `${this.title} was written by ${this.author} in the year ${this.year}`;
+  },
+};
+```
+
+`Object.values(book1)` to see the values of the Object literal in an array
+`Object.keys(book2);` to see the keys of the Object.
+
+Need to explore more of the OLOO pattern.
+
+## Constructor functions
+
+```js
+function Book(title, author, year) {
+  this.title = title;
+  this.author = author;
+  this.year = year;
+  this.getSummary = function () {
+    return `${this.title} was written by ${this.author} in the year ${this.year}`;
+  };
+}
+
+const book1 = new Book('B1', 'a1', '2013');
+const book2 = new Book('B2', 'a2', '2013');
+```
+
+For `getSummary` we can do `this.getSummary = function() {}` inside our constructor function itself.
+We don't need create the `getSummary` method again and again. (But I think in OLOO also it doesn't get created again and again. Will need to read it again)
+
+## Prototypes
+
+If we do the following:
+
+```js
+function Book(title, author, year) {
+  this.title = title;
+  this.author = author;
+  this.year = year;
+}
+
+Book.prototype.getSummary = function () {
+  return `${this.title} was written by ${this.author} in the year ${this.year}`;
+};
+
+Book.prototype.revise = function (newYear) {
+  this.year = newYear;
+  this.revised = true;
+};
+
+const book1 = new Book('B1', 'a1', '2013');
+const book2 = new Book('B2', 'a2', '2013');
+
+console.log(book2);
+book2.revise(2008);
+console.log(book2);
+```
+
+Then when we `console.log(book2)` we don't see the `getSummary` method in there. It is inside `__proto__`.
+We do want a title, author and year for every book but we don't want getSummary for every book. I think what he means is we don't want that function to be created again and again for every object. And want only one created and all `book objects` to use that.
+
+## Inheritance with prototype
+
+We want a magazine constructor which inherits from Book.
+
+```js
+function Book(title, author, year) {
+  this.title = title;
+  this.author = author;
+  this.year = year;
+}
+
+Book.prototype.getSummary = function() {
+  return `${this.title} was written by ${this.author} in the year ${this.year}`;
+}
+
+// magazine constructor
+function Magazine(title, author, year, month) {
+  Book.call(this, title, author, year);
+
+  this.month = month;
+}
+
+const mag1 = new Magazine('Mag One', 'John Doe', '2018' 'Jan');
+
+console.log(mag1);
+
+```
+
+So now if we want to call `mag1.getSummary()`, we'll get an error.
+What we need to do is we have to add the followsing:
+
+```js
+Magazine.prototype = Object.create(Book.prototype);
+const mag1 = new Magazine('Mag One', 'John Doe', '2018' 'Jan')
+console.log(mag1.getSummary)
+```
+
+NOTE: mag1 instantiating should be be after `Magazine.prototype = Object.create(Book.prototype);`
+
+Right now if we look at the `__proto__` --> `__proto__` and we look at the constructor, we see that it uses the `Book` constructor. If we want it to use the `Magazine` constructor, we need to do:
+`Magazine.prototype.constructor = Magazine`
+
+So all in all, it looks like follows::
+
+```js
+function Book(title, author, year) {
+  this.title = title;
+  this.author = author;
+  this.year = year;
+}
+
+Book.prototype.getSummary = function () {
+  return `${this.title} was written by ${this.author} in the year ${this.year}`;
+};
+
+// magazine constructor
+function Magazine(title, author, year, month) {
+  Book.call(this, title, author, year);
+
+  this.month = month;
+}
+
+// Inherit from Book object using prototype
+Magazine.prototype = Object.create(Book.prototype);
+// Basically want the Magazine prototype to point to Book prototype
+
+// Magazine prototype constructor should be Magazine not Book
+Magazine.prototype.constructor = Magazine;
+```
+
+So basically doing inheritance with prototype (for constructor functions. Probably the same thing can work for object created by `Object.create`)
+
+## Object.create
+
+A different way to create objects.
+
+First we need to create our object. There are various design patterns (we can use factory pattern)
+But we want to keep this simple.
+
+```js
+// Object of Protos
+const bookProtos = {
+  getSummary: function () {
+    return `${this.title} was written by ${this.author} in ${this.year}`;
+  },
+  getAge: function () {
+    const years = new Date().getFullYear() - this.year;
+    return `{this.title} is ${years} years old`;
+  },
+};
+```
+
+The way `bookProtos` has been created is simple. Just created an object of functions (I think this is a bit like how we did React before class syntax was used incorporated in JS and subsequently adopted into React.)
+
+Now we'll create objects
+
+```js
+// Object of Protos
+const bookProtos = {
+  getSummary: function () {
+    return `${this.title} was written by ${this.author} in ${this.year}`;
+  },
+  getAge: function () {
+    const years = new Date().getFullYear() - this.year;
+    return `{this.title} is ${years} years old`;
+  },
+};
+
+const book1 = Object.create(bookProtos);
+book1.title = 'Book One';
+book1.author = 'John Doe';
+book1.year = '2013';
+
+console.log(book1);
+```
+
+Another way to create the object::
+
+```js
+const book1 = Object.create(bookProtos, {
+  title: { value: 'Book One' },
+  author: { value: 'John Doe' },
+  year: { value: '2013' },
+});
+console.log(book1);
+```

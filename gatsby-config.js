@@ -1,6 +1,6 @@
 const siteMetadata = {
-  title: `The Local Blog`,
-  description: `This is my coding blog where I write about my coding journey.`,
+  title: `Notes`,
+  description: `These are my notes based on something I've learned or something new I am learning. This is insipred by "Learn in public" by Shawn Wang aka @swyx`,
   image: `/default-site-image.jpg`,
   siteUrl: `https://thelocalhost.blog`,
   siteLanguage: `en-GB`,
