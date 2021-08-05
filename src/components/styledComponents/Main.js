@@ -5,6 +5,7 @@ const Main = styled.main`
   max-width: var(--max-width);
   margin: 0 auto;
   padding: var(--spacing-xs);
+  min-height: 100vh;
 `;
 
 export default Main;
