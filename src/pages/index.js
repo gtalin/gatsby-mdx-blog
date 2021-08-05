@@ -5,29 +5,41 @@ import styled from 'styled-components';
 import SEO from 'react-seo-component';
 
 import Layout from '../components/Layout';
-import Dump from '../components/Dump';
-import { useSiteMetadata } from '../hooks/useSiteMetadata';
+import Posts from '../components/Posts';
+import SEOcomponent from '../components/SEOcomponent';
 
-const IndexWrapper = styled.main``;
-const PostWrapper = styled.div``;
-const Image = styled(GatsbyImage)`
-  border-radius: 5px;
-`;
+// import { useSiteMetadata } from '../hooks/useSiteMetadata';
 
-const Home = ({ data }) => {
-  const {
-    title,
-    description,
-    image,
-    siteUrl,
-    siteLanguage,
-    siteLocale,
-    twitterUsername,
-  } = useSiteMetadata();
-  return (
-    <>
-      <Layout>
-        <SEO
+// import { H2, P } from '../components/styledComponents/Typography';
+// import { H2, P } from '../components/styledComponents/Typography';
+
+// const Posts = styled.section`
+//   margin-bottom: var(--spacing-lg);
+//   display: grid;
+//   grid-template-columns: 1fr;
+
+// `;
+
+// const Post = styled.div`
+//   margin-bottom: var(--spacing-lg);
+// `;
+// const Image = styled(GatsbyImage)`
+//   border-radius: 5px;
+// `;
+
+const Home = ({ data }) => (
+  // const {
+  //   title,
+  //   description,
+  //   image,
+  //   siteUrl,
+  //   siteLanguage,
+  //   siteLocale,
+  //   twitterUsername,
+  // } = useSiteMetadata();
+  <>
+    <Layout>
+      {/* <SEO
           title={title}
           description={description || 'Super cool blog'}
           image={`${siteUrl}${image}`}
@@ -35,30 +47,30 @@ const Home = ({ data }) => {
           siteLanguage={siteLanguage}
           siteLocale={siteLocale}
           twitterUsername={twitterUsername}
-        />
-        <IndexWrapper>
+        /> */}
+      <SEOcomponent />
+      <Posts data={data.allMdx.nodes} />
+      {/* <Posts>
           {data.allMdx.nodes.map(({ id, excerpt, frontmatter, fields }) => {
             const image = getImage(frontmatter.cover);
             return (
-              <PostWrapper key={id}>
+              <Post key={id}>
                 <Link to={fields.slug}>
-                  <h2>{frontmatter.title}</h2>
+                  <H2>{frontmatter.title}</H2>
                 </Link>
                 {frontmatter.cover ? (
                   <Image image={image} alt="cover image" />
                 ) : null}
 
-                <p>{frontmatter.date}</p>
-                <p>{excerpt}</p>
-              </PostWrapper>
+                <P darker>{frontmatter.date}</P>
+                <P>{excerpt}</P>
+              </Post>
             );
           })}
-        </IndexWrapper>
-      </Layout>
-    </>
-  );
-};
-
+        </Posts> */}
+    </Layout>
+  </>
+);
 export const query = graphql`
   query SITE_INDEX_QUERY {
     allMdx(

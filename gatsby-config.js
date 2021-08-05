@@ -1,6 +1,6 @@
 const siteMetadata = {
-  title: `Notes`,
-  description: `These are my notes based on something I've learned or something new I am learning. This is insipred by "Learn in public" by Shawn Wang aka @swyx`,
+  title: `Aruj's notes`,
+  description: `These are my notes based on something I've learned or something new I am learning.`,
   image: `/default-site-image.jpg`,
   siteUrl: `https://thelocalhost.blog`,
   siteLanguage: `en-GB`,
@@ -16,6 +16,31 @@ module.exports = {
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
+    {
+      resolve: 'gatsby-plugin-webfonts',
+      options: {
+        fonts: {
+          google: [
+            {
+              family: 'Inconsolata',
+              variants: ['400'],
+            },
+            {
+              family: 'Roboto',
+              variants: ['400'],
+            },
+            // {
+            //   family: 'Roboto',
+            //   variants: ['400', '500', '600', '700'],
+            // },
+            {
+              family: 'Baloo 2',
+              variants: ['400', '500', '600', '700'],
+            },
+          ],
+        },
+      },
+    },
     {
       resolve: `gatsby-plugin-mdx`,
       options: {

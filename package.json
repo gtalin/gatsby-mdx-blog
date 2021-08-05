@@ -19,6 +19,7 @@
     "gatsby-plugin-mdx": "^2.0.0",
     "gatsby-plugin-sharp": "^3.0.0",
     "gatsby-plugin-styled-components": "^4.0.0",
+    "gatsby-plugin-webfonts": "^2.1.1",
     "gatsby-remark-images": "^4.0.0",
     "gatsby-source-filesystem": "^3.0.0",
     "gatsby-transformer-sharp": "^3.0.0",
@@ -26,6 +27,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
+    "react-icons": "^4.2.0",
     "react-live": "^2.2.3",
     "react-seo-component": "^2.0.2",
     "styled-components": "^5.2.1"

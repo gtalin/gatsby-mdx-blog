@@ -6,6 +6,15 @@ import SEO from 'react-seo-component';
 import Layout from '../components/Layout';
 import { useSiteMetadata } from '../hooks/useSiteMetadata';
 
+// import { H1, P } from '../components/styledComponents/Typography';
+import ArticleNav from '../components/ArticleNav';
+import {
+  H1,
+  P,
+  Article,
+  ArticleHeader,
+} from '../components/styledComponents/mdxComponents';
+
 const BlogPostTemplate = ({ data, pageContext }) => {
   const {
     image,
@@ -18,6 +27,7 @@ const BlogPostTemplate = ({ data, pageContext }) => {
   const { frontmatter, body, fields, excerpt } = data.mdx;
   const { title, date, cover } = frontmatter;
   const { previous, next } = pageContext;
+
   return (
     <Layout>
       <SEO
@@ -35,27 +45,15 @@ const BlogPostTemplate = ({ data, pageContext }) => {
         publishedDate={date}
         modifiedDate={new Date(Date.now()).toISOString()}
       />
-      <h1>{frontmatter.title}</h1>
-      <p>{frontmatter.date}</p>
-      <MDXRenderer>{body}</MDXRenderer>
-      {previous === false ? null : (
-        <>
-          {previous && (
-            <Link to={previous.fields.slug}>
-              <p>&#8592;{previous.frontmatter.title}</p>
-            </Link>
-          )}
-        </>
-      )}
-      {next === false ? null : (
-        <>
-          {next && (
-            <Link to={next.fields.slug}>
-              <p>{next.frontmatter.title}&#8594;</p>
-            </Link>
-          )}
-        </>
-      )}
+      <Article>
+        <ArticleHeader>
+          <H1>{frontmatter.title}</H1>
+          <P darker>{frontmatter.date}</P>
+        </ArticleHeader>
+
+        <MDXRenderer>{body}</MDXRenderer>
+        <ArticleNav previous={previous} next={next} />
+      </Article>
     </Layout>
   );
 };
