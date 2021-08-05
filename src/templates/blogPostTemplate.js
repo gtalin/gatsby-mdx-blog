@@ -1,12 +1,11 @@
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import React from 'react';
 import SEO from 'react-seo-component';
-// import Dump from '../components/Dump';
+
 import Layout from '../components/Layout';
 import { useSiteMetadata } from '../hooks/useSiteMetadata';
 
-// import { H1, P } from '../components/styledComponents/Typography';
 import ArticleNav from '../components/ArticleNav';
 import {
   H1,
@@ -17,6 +16,7 @@ import {
 
 const BlogPostTemplate = ({ data, pageContext }) => {
   const {
+    siteName,
     image,
     siteUrl,
     siteLanguage,
@@ -32,6 +32,7 @@ const BlogPostTemplate = ({ data, pageContext }) => {
     <Layout>
       <SEO
         title={title}
+        titleTemplate={siteName}
         description={excerpt}
         image={
           cover === null ? `${siteUrl}${image}` : `${siteUrl}${cover.publicURL}`
@@ -66,6 +67,7 @@ export const query = graphql`
       frontmatter {
         title
         date(formatString: "YYYY MMMM Do")
+        published
         cover {
           publicURL
         }

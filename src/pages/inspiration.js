@@ -1,19 +1,11 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import SEOComponent from '../components/SEOcomponent';
-import {
-  Article,
-  H1,
-  H2,
-  P,
-} from '../components/styledComponents/mdxComponents';
-
-import { useSiteMetadata } from '../hooks/useSiteMetadata';
+import { Article, H1, P } from '../components/styledComponents/mdxComponents';
 
 const Inspiration = () => (
-  // const { description } = useSiteMetadata();
   <Layout>
-    <SEOComponent />
+    <SEOComponent title="Inspiration" />
     <Article>
       <H1>Inspiration for this blog</H1>
       <P>

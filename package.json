@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "gatsby develop -p 9988 -o"
+    "dev": "gatsby develop -p 9988 -o",
+    "build": "gatsby build",
+    "serve": "gatsby serve -p 9500 -o"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +19,7 @@
     "gatsby": "^3.0.0",
     "gatsby-plugin-image": "^1.0.0",
     "gatsby-plugin-mdx": "^2.0.0",
+    "gatsby-plugin-react-helmet": "^4.11.0",
     "gatsby-plugin-sharp": "^3.0.0",
     "gatsby-plugin-styled-components": "^4.0.0",
     "gatsby-plugin-webfonts": "^2.1.1",
