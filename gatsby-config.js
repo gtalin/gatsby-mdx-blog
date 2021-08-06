@@ -4,12 +4,16 @@ const siteMetadata = {
   siteName: `Aruj's notes`,
   description: `These are my notes based on something I've learned or something new I am learning.`,
   image: `/default-site-image.jpg`,
-  siteUrl: `http://localhost:8000`,
+  siteUrl: `${process.env.SITE_URL}`,
   siteLanguage: `en-GB`,
   siteLocale: `en_gb`,
   twitterUsername: `@gtalinn`,
   authorName: `Aruj Joshi`,
 };
+
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
 
 module.exports = {
   siteMetadata,
