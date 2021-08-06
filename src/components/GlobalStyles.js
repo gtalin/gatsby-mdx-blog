@@ -45,6 +45,22 @@ const GlobalStyles = createGlobalStyle`
   --red-dark: #842029;
   --green-light: #d1e7dd;
   --green-dark: #0f5132;
+
+  /* Rainbow gradient */
+  --rainbow-linear-gradient: linear-gradient(
+      #d367c1 10%,
+      #dedf40 25%,
+      #62cb5c 50%,
+      #00bbcb 75%,
+      #ab79d6 90%
+    );
+    --rainbow-linear-gradient-LtoR: linear-gradient(to right,
+      #d367c1 10%,
+      #dedf40 25%,
+      #62cb5c 50%,
+      #00bbcb 75%,
+      #ab79d6 90%
+    );
   /* box shadows */
   --shadow-card: 0 3px 5px rgba(0,0,0,.18);
   --shadow-1: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);

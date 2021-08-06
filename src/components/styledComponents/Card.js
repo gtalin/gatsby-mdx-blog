@@ -14,13 +14,7 @@ const Card = styled.div`
     width: 100%;
     height: 100%;
     background: var(--primary-500);
-    background: linear-gradient(
-      #d367c1 10%,
-      #dedf40 25%,
-      #62cb5c 50%,
-      #00bbcb 75%,
-      #ab79d6 90%
-    );
+    background: var(--rainbow-linear-gradient);
     position: absolute;
     z-index: -1;
     top: 0;

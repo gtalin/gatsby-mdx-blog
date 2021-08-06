@@ -7,12 +7,8 @@ import Layout from '../components/Layout';
 import { useSiteMetadata } from '../hooks/useSiteMetadata';
 
 import ArticleNav from '../components/ArticleNav';
-import {
-  H1,
-  P,
-  Article,
-  ArticleHeader,
-} from '../components/styledComponents/mdxComponents';
+import { H1, P } from '../components/styledComponents/mdxComponents';
+import { Article, ArticleHeader } from '../components/styledComponents/Article';
 
 const BlogPostTemplate = ({ data, pageContext }) => {
   const {

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 import { FaHome } from 'react-icons/fa';
-import { ArticleFooter, ArticleLink } from './styledComponents/mdxComponents';
+import { ArticleFooter, ArticleLink } from './styledComponents/Article';
 
 const StyledIcon = styled(FaHome)`
   color: var(--white);

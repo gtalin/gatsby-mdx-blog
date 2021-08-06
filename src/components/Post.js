@@ -5,7 +5,7 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 
 import { H2, P, StyledLink } from './styledComponents/Typography';
 import Card from './styledComponents/Card';
-import Article from './styledComponents/Article';
+import { Article } from './styledComponents/Article';
 
 const Image = styled(GatsbyImage)`
   border-radius: 5px;

@@ -1,7 +1,8 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import SEOComponent from '../components/SEOcomponent';
-import { Article, H1, P } from '../components/styledComponents/mdxComponents';
+import { H1, P } from '../components/styledComponents/mdxComponents';
+import { Article } from '../components/styledComponents/Article';
 
 const Inspiration = () => (
   <Layout>

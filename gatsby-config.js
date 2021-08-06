@@ -1,5 +1,6 @@
 const siteMetadata = {
-  title: `Aruj's notes`,
+  // title: `Aruj's notes`,
+  title: `Aruj's Blog`,
   siteName: `Aruj's notes`,
   description: `These are my notes based on something I've learned or something new I am learning.`,
   image: `/default-site-image.jpg`,

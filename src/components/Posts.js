@@ -1,9 +1,6 @@
 import React from 'react';
-import { Link } from 'gatsby';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import styled from 'styled-components';
+import { getImage } from 'gatsby-plugin-image';
 import Grid from './styledComponents/Grid';
-import { H2, P, StyledLink } from './styledComponents/Typography';
 import Post from './Post';
 
 // const Post = styled.div`
